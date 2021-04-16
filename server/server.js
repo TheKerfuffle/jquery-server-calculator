@@ -9,10 +9,8 @@ app.use(bodyParser.urlencoded({extended:true}))
 // Serve up static files (HTML, CSS, Client JS)
 app.use(express.static('server/public'));
 
-// Initialize our guesses array
-let history = ['You are seeing the history'];
-
-// GET & POST Routes go here
+// Initialize our storage array
+let history = [];
 
 // GET
 app.get( '/history', (req, res)  => {
@@ -24,7 +22,7 @@ app.get( '/history', (req, res)  => {
 app.post('/history', (req, res) => {
   let newInputs = req.body;
   // console.log('Checking format of newInputs', newInputs);
-  guesses.push(newInputs);
+  history.push(newInputs);
   doMath();
   res.sendStatus(201);
 })
@@ -44,7 +42,7 @@ app.listen(PORT, () => {
 
 
  function doMath() {
-
+    history
     }
 
 
