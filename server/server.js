@@ -41,13 +41,31 @@ app.listen(PORT, () => {
 
 
 
- function doMath() {
+function doMath() {
     for (let problem of history) {
         let num1 = problem.number1;
         let num2 = problem.number2;
-        
+  
+        switch (problem.newOperator) {
+  
+            case '+':
+                problem.answer = num1 + num2;
+                break;
+            
+            case '-':
+                problem.answer = num1 - num2;
+                break;
+            
+            case '*':
+                problem.answer = num1 * num2;
+                break;
+  
+            case '/':
+                problem.answer = num1 / num2;
+                break;
+        }
     }
-}
+  }
 
 
     // let newValues = {
