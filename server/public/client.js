@@ -56,28 +56,30 @@ function setDivideOperator() {
 // }
 
 function sendValues() {
-  let newValues = {
-    number1: $('#number1').val(),
-    number2: $('#number2').val(),
-    newOperator: operator,
-    answer: 0
-  }
-  
-  $.ajax({
-    method: 'POST',
-    url: '/history',
-    data: newValues,
-})
-    .then(function (response) {
-      console.log('added guesses');
-      getHistory();
-    })
-    .catch( function (error) {
-      console.log('error from server', error);
-      alert('sorry, could not get guesses. Try again later.');
-    })
-
-
+    if (operator === undefined) {
+        alert('Please choose a Math operator ( + - * / )')
+    } else {
+        let newValues = {
+            number1: $('#number1').val(),
+            number2: $('#number2').val(),
+            newOperator: operator,
+            answer: 0
+        }
+      
+        $.ajax({
+            method: 'POST',
+            url: '/history',
+            data: newValues,
+        })
+        .then(function (response) {
+            // console.log('added problem');
+            getHistory();
+        })
+        .catch( function (error) {
+            console.log('error from server', error);
+            alert('sorry, could not get guesses. Try again later.');
+        })
+    }
 }
 
 function getHistory() {

@@ -42,7 +42,17 @@ app.listen(PORT, () => {
 
 
  function doMath() {
-    history
+    for (let problem of history) {
+        let num1 = problem.number1;
+        let num2 = problem.number2;
+        
     }
+}
 
 
+    // let newValues = {
+    //     number1: $('#number1').val(),
+    //     number2: $('#number2').val(),
+    //     newOperator: operator,
+    //     answer: 0
+    // }
