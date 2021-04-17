@@ -25,14 +25,12 @@ function onReady() {
     getHistory();
     
     // Numbers/operators/dot to append to math equation string that will go to the server
-
     // More comfortable view of these statements
     $('#num1').on('click', function (event) {
         // Much like num += 1, this sets the value of the input field
         // equal to itself and concatenates the new value to the string
         $('#math-here').val($('#math-here').val()+'1');
     });
-
 
     $('#num2').on('click', function (event) {$('#math-here').val($('#math-here').val()+'2');});
     $('#num3').on('click', function (event) {$('#math-here').val($('#math-here').val()+'3');});
@@ -101,8 +99,13 @@ function onReady() {
 
 function sendValues() {
     
+    // We are really only sending a math expression to the server
+    // we initialize other variables in the object for later use
     let newValues = {
         mathExpression: $('#math-here').val(),
+        number1: 0,
+        number2: 0,
+        mathOperator: '',
         answer: 0
     }
       
@@ -142,7 +145,7 @@ function render( processedInputs ) {
     $('#answer').text(processedInputs[processedInputs.length-1].answer);
 
     for (let question of processedInputs) {
-        let string = `${question.number1} ${question.newOperator} ${question.number2} = ${question.answer}`
+        let string = `${question.mathExpression} = ${question.answer}`
         $('#history').append(`<li>${string}</li>`);
     }
 }

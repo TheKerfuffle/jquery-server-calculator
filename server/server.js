@@ -15,6 +15,8 @@ let history = [];
 // GET
 app.get( '/history', (req, res)  => {
   // console.log(`Request for guesses serverside ...  guesses);
+  // Trying to keep an alert from popping up at us
+  // when we reload a page with an empty history array
   if ( history.length === 0 ) {
     console.log('Add inputs to get history');
   } else {
@@ -27,6 +29,7 @@ app.post('/history', (req, res) => {
   let newInputs = req.body;
   // console.log('Checking format of newInputs', newInputs);
   history.push(newInputs);
+  getMath();
   doMath();
   res.sendStatus(201);
 })
@@ -47,11 +50,10 @@ app.listen(PORT, () => {
 
 function doMath() {
     for (let problem of history) {
-        let num1 = Number(problem.number1);
-        let num2 = Number(problem.number2);
+        let num1 = problem.number1;
+        let num2 = problem.number2;
   
-        switch (problem.newOperator) {
-  
+        switch (problem.mathOperator) {
             case '+':
                 problem.answer = num1 + num2;
                 break;
@@ -69,12 +71,40 @@ function doMath() {
                 break;
         }
     }
-  }
+}
+
+  function getMath() {
+    let operator = '';
+
+    for (let problem of history) {
+        let str = problem.mathExpression;
+        let num1 = parseFloat(str);
+        let num2 = '';
+  
+        for (let letter of str) {
+            if (letter === '+' || letter === '-' || letter === '*' || letter === '/' ) {
+                operator = letter;
+            }
+        }
+        
+    
+        for (let i = str.indexOf(operator)+1; i<str.length; i++) {
+            num2+=str[i];
+        }
+
+        // repopulate our object with variables
+        problem.number1 = Number(num1);
+        problem.number2 = Number(num2);
+        problem.mathOperator = operator;
+        problem.mathExpression = `${num1} ${operator} ${num2}`;
+    }
+}
 
 
-    // let newValues = {
-    //     number1: $('#number1').val(),
-    //     number2: $('#number2').val(),
-    //     newOperator: operator,
-    //     answer: 0
-    // }
+//   let newValues = {
+//     mathExpression: $('#math-here').val(),
+//     number1: 0,
+//     number2: 0,
+//     mathOperator: '',
+//     answer: 0
+//   }
