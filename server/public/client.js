@@ -7,10 +7,17 @@ function handleReady() {
     $('#multiply').on('click', setMultiplyOperator);
     $('#divide').on('click', setDivideOperator);
 
-  $('#go').on('click', function (event) {
-      // console.log('clicked go');
-      sendValues();
-  });
+    $('#clear').on('click', function (event) {
+        $('#number1').val('');
+        $('#number2').val('');
+    })
+
+    $('#go').on('click', function (event) {
+        // console.log('clicked go');
+        sendValues();
+    });
+
+    getHistory();
 }
 
 let operator;
@@ -88,14 +95,13 @@ function getHistory() {
         url: '/history'
     })
     .then(function (response) {
-        console.log('respone from server', response);
+        // console.log('response from server', response);
         render(response);
     })
     .catch( function (error) {
         console.log('error from server', error);
         alert('sorry, could not get quotes. Try again later.');
     })
-    console.log('After making server request...');
 }
 
 function render( processedInputs ) {
