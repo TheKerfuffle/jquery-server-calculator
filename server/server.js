@@ -15,7 +15,11 @@ let history = [];
 // GET
 app.get( '/history', (req, res)  => {
   // console.log(`Request for guesses serverside ...  guesses);
-  res.send( history );
+  if ( history.length === 0 ) {
+    console.log('Add inputs to get history');
+  } else {
+    res.send( history );
+  }
 });
 
 // POST

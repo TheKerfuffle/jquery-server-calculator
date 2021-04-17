@@ -1,6 +1,6 @@
-$(handleReady);
+$(onReady);
 
-function handleReady() {
+function onReady() {
 
     $('#plus').on('click', setPlusOperator);
     $('#minus').on('click', setMinusOperator);
@@ -10,13 +10,14 @@ function handleReady() {
     $('#clear').on('click', function (event) {
         $('#number1').val('');
         $('#number2').val('');
+        operator = undefined;
     })
 
     $('#go').on('click', function (event) {
         // console.log('clicked go');
         sendValues();
     });
-
+    
     getHistory();
 }
 

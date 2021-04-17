@@ -1,0 +1,15 @@
+h1 {
+    background-color: maroon;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin: 0px;
+    padding: 1rem;
+}
+
+body {
+    margin: 0px;
+}
+
+main {
+    padding: 1rem;
+}
