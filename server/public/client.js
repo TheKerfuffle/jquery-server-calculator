@@ -99,31 +99,11 @@ function getHistory() {
 }
 
 function render( processedInputs ) {
+    $('#history').empty();
+    $('#answer').text(processedInputs[processedInputs.length-1].answer);
 
-
-//   console.log(checkedguesses);
-  
-//   $("#round-total").text(`${checkedguesses.length}`);
-//   $('#total-guesses').empty();
-//   let string = '';
-//     for (let guess of checkedguesses){
-//       console.log(`${guess.player1}, ${guess.player2}`);
-//       if (guess.player1correct === 1) {
-//         string = `<p>Player 1: ${guess.player1} , Too high!</p>`;
-//       } else if (guess.player1correct === -1) {
-//         string = `<p>Player 1: ${guess.player1} , Too low!</p>`;
-//       } else {
-//         string = `<p class="correct">Player 1: ${guess.player1} , Right on!</p> <button id="restart-button">Restart</button>`;
-//       }
-
-//       if (guess.player2correct === 1) {
-//         string += `<p>Player 2: ${guess.player2} , Too high!</p>`;
-//       } else if (guess.player2correct === -1) {
-//         string += `<p>Player 2: ${guess.player2} , Too low!</p>`;
-//       } else {
-//         string += `<p class="correct">Player 2: ${guess.player2} , Right on!</p> <button id="restart-button">Restart</button>`;
-//       }
-
-//       $('#total-guesses').append(string);
-//     }
+    for (let question of processedInputs) {
+        let string = `${question.number1} ${question.newOperator} ${question.number2} = ${question.answer}`
+        $('#history').append(`<li>${string}</li>`);
+    }
 }

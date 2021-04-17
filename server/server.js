@@ -43,8 +43,8 @@ app.listen(PORT, () => {
 
 function doMath() {
     for (let problem of history) {
-        let num1 = problem.number1;
-        let num2 = problem.number2;
+        let num1 = Number(problem.number1);
+        let num2 = Number(problem.number2);
   
         switch (problem.newOperator) {
   
