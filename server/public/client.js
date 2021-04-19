@@ -100,7 +100,7 @@ function onReady() {
 function sendValues() {
     
     // We are really only sending a math expression to the server
-    // we initialize other variables in the object for later use
+    // we initialize other variables in the object in order to st
     let newValues = {
         mathExpression: $('#math-here').val(),
         number1: 0,
@@ -108,21 +108,37 @@ function sendValues() {
         mathOperator: '',
         answer: 0
     }
-      
-    $.ajax({
-        method: 'POST',
-        url: '/history',
-        data: newValues,
-    })
-    .then(function (response) {
-        // console.log('added problem');
-        getHistory();
-    })
-    .catch( function (error) {
-        console.log('error from server', error);
-        alert('sorry, could not get guesses. Try again later.');
-    })
-    
+
+    // If the first digit is a math operator, we deny the format of the expression
+    if (newValues.mathExpression[0] === '+' || newValues.mathExpression[0] === '*' || newValues.mathExpression[0] === '/' || newValues.mathExpression[0] === '-') {
+        alert('Must input a number first, then an operator, then another number')
+    }   
+
+    // Special case, the first number inputted is negative, 
+    // need to check for the rest of the expression before we send this input
+    // 
+//      I have this commented out because I ran out of time to support negative numbers
+    // 
+    // else if (newValues.mathExpression[0] === '-') {
+    //     parseInputs(newValues);
+    // }
+
+    else {
+        formatInputValues(newValues);
+        $.ajax({
+            method: 'POST',
+            url: '/history',
+            data: newValues,
+        })
+        .then(function (response) {
+            // console.log('added problem');
+            getHistory();
+        })
+        .catch( function (error) {
+            console.log('error from server', error);
+            alert('sorry, could not get guesses. Try again later.');
+        })
+    }
 }
 
 function getHistory() {
@@ -136,7 +152,7 @@ function getHistory() {
     })
     .catch( function (error) {
         console.log('error from server', error);
-        alert('sorry, could not get quotes. Try again later.');
+        alert('sorry, could not get math history. Try again later.');
     })
 }
 
@@ -148,4 +164,36 @@ function render( processedInputs ) {
         let string = `${question.mathExpression} = ${question.answer}`
         $('#history').append(`<li>${string}</li>`);
     }
+}
+
+
+// Takes in an object with a string type math expression
+// and formats it into 2 values and a math operator
+function formatInputValues(input) {
+    
+    // Initialize variables
+    let operator = '';
+    let str = input.mathExpression;
+    let num1 = parseFloat(str);
+    let num2 = '';
+
+    // Grab the math operator
+    for (let letter of str) {
+        if (letter === '+' || letter === '-' || letter === '*' || letter === '/' ) {
+            operator = letter;
+        }
+    }
+    
+    // Loop through string after math operator to get second number value
+    for (let i = str.indexOf(operator)+1; i<str.length; i++) {
+        num2+=str[i];
+    }
+
+    // repopulate our object with variables
+    input.number1 = Number(num1);
+    input.number2 = Number(num2);
+    input.mathOperator = operator;
+    input.mathExpression = `${num1} ${operator} ${num2}`;
+
+    return input;
 }

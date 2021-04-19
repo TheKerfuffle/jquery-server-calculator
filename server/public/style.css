@@ -13,3 +13,7 @@ body {
 main {
     padding: 1rem;
 }
+
+button {
+    margin: .25rem;
+}

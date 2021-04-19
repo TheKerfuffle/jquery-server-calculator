@@ -29,7 +29,7 @@ app.post('/history', (req, res) => {
   let newInputs = req.body;
   // console.log('Checking format of newInputs', newInputs);
   history.push(newInputs);
-  getMath();
+
   doMath();
   res.sendStatus(201);
 })
@@ -46,12 +46,12 @@ app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
 
-
-
+// 
 function doMath() {
     for (let problem of history) {
-        let num1 = problem.number1;
-        let num2 = problem.number2;
+      
+        let num1 = Number(problem.number1);
+        let num2 = Number(problem.number2);
   
         switch (problem.mathOperator) {
             case '+':
@@ -72,34 +72,6 @@ function doMath() {
         }
     }
 }
-
-  function getMath() {
-    let operator = '';
-
-    for (let problem of history) {
-        let str = problem.mathExpression;
-        let num1 = parseFloat(str);
-        let num2 = '';
-  
-        for (let letter of str) {
-            if (letter === '+' || letter === '-' || letter === '*' || letter === '/' ) {
-                operator = letter;
-            }
-        }
-        
-    
-        for (let i = str.indexOf(operator)+1; i<str.length; i++) {
-            num2+=str[i];
-        }
-
-        // repopulate our object with variables
-        problem.number1 = Number(num1);
-        problem.number2 = Number(num2);
-        problem.mathOperator = operator;
-        problem.mathExpression = `${num1} ${operator} ${num2}`;
-    }
-}
-
 
 //   let newValues = {
 //     mathExpression: $('#math-here').val(),

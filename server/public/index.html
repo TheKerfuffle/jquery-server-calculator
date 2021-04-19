@@ -15,34 +15,33 @@
     </header>
     <main>
         <div id="input-field">
-        <input id="math-here" type="text" placeholder="Math Goes Here" > <button id="clear">c</button>
-        <div>
-            <button id="num1">1</button> <button id="num2">2</button> <button id="num3">3</button> <button id="plus">+</button>
+            <!-- The input field that gets populated as buttons are clicked -->
+            <input id="math-here" type="text" placeholder="Math Goes Here" > <button id="clear">c</button>
+            <!-- Input buttons that takes in clicks and writes to the input field -->
+            <div>
+                <button id="num1">1</button> <button id="num2">2</button> <button id="num3">3</button> <button id="plus">+</button>
+            </div>
+            <div>
+                <button id="num4">4</button> <button id="num5">5</button> <button id="num6">6</button> <button id="minus">-</button>
+            </div>
+            <div>
+                <button id="num7">7</button> <button id="num8">8</button> <button id="num9">9</button> <button id="multiply">*</button>
+            </div>
+            <div>
+                <button id="num0">0</button> <button id="dot">.</button> <button id="go">=</button> <button id="divide">/</button>
+            </div>
         </div>
-        <div>
-            <button id="num4">4</button> <button id="num5">5</button> <button id="num6">6</button> <button id="minus">-</button>
-        </div>
-        <div>
-            <button id="num7">7</button> <button id="num8">8</button> <button id="num9">9</button> <button id="multiply">*</button>
-        </div>
-        <div>
-            <button id="num0">0</button> <button id="dot">.</button> <button id="go">=</button> <button id="divide">/</button>
-        </div>
-        
-        
-        
-        
-        
-        
-        
 
-        
-        </div>
         <section>
-        <div id="answer-display">
-            <h3>Answer: <span id="answer">0</span></h3>
-        </div>
-        <div id="history"></div>
+            <!-- Displays the answer to the current equation -->
+            <div id="answer-display">
+                <h3>Answer: <span id="answer">0</span></h3>
+            </div>
+            
+            <!-- Displays all of the history of  -->
+            <div id="history">
+
+            </div>
         </section>
     </main>
 </body>
