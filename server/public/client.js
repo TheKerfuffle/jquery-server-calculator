@@ -110,7 +110,10 @@ function sendValues() {
     }
 
     // If the first digit is a math operator, we deny the format of the expression
-    if (newValues.mathExpression[0] === '+' || newValues.mathExpression[0] === '*' || newValues.mathExpression[0] === '/' || newValues.mathExpression[0] === '-') {
+    if (newValues.mathExpression[0] === '+' ||
+            newValues.mathExpression[0] === '*' || 
+            newValues.mathExpression[0] === '/' || 
+            newValues.mathExpression[0] === '-') {
         alert('Must input a number first, then an operator, then another number')
     }   
 
@@ -141,6 +144,7 @@ function sendValues() {
     }
 }
 
+// Take data from the /history path and write it to the DOM
 function getHistory() {
     $.ajax({
         method: 'GET',
@@ -156,6 +160,8 @@ function getHistory() {
     })
 }
 
+
+// Write values to the DOM in the format required.
 function render( processedInputs ) {
     $('#history').empty();
     $('#answer').text(processedInputs[processedInputs.length-1].answer);
